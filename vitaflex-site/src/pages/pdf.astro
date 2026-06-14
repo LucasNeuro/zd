@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MarkdownBody from '../components/MarkdownBody.astro';
+import {
+  partes,
+  getIntroHtml,
+  getParteHtml,
+  getRacionalHtml,
+  loadDocumentHtml,
+} from '../utils/docs';
+
+const introHtml = getIntroHtml();
+const racionalHtml = getRacionalHtml();
+const anexoHtml = loadDocumentHtml('jsons-prontos-para-importar-desafio-zendesk-vitaflex.md');
+---
+
+<Layout title="Documento Completo — PDF" description="Apresentação completa do Desafio Técnico Zendesk VitaFlex">
+  <div class="no-print sticky top-0 z-40 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur">
+    <div class="mx-auto flex max-w-4xl items-center justify-between gap-4">
+      <div>
+        <p class="font-semibold text-slate-900">Documento completo</p>
+        <p class="text-sm text-slate-500">Lucas Marcondes · Desafio Técnico Zendesk</p>
+      </div>
+      <div class="flex gap-2">
+        <a
+          href="/"
+          class="rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50"
+        >
+          ← Voltar
+        </a>
+        <button
+          id="print-pdf-btn"
+          type="button"
+          class="rounded-lg px-4 py-1.5 text-sm font-semibold text-white"
+          style="background-color: #1a5fff;"
+        >
+          Salvar como PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <article id="pdf-document" class="pdf-document mx-auto max-w-4xl px-6 py-10 sm:px-10">
+    <header class="pdf-cover mb-10 border-b-2 border-slate-200 pb-10 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest" style="color: #1a5fff;">eteg</p>
+      <h1 class="mt-3 text-3xl font-bold text-slate-900">Desafio Técnico Zendesk</h1>
+      <p class="mt-2 text-xl text-slate-700">VitaFlex — Saúde Corporativa B2B</p>
+      <p class="mt-6 text-base font-medium text-slate-800">Lucas Marcondes</p>
+      <p class="mt-1 text-sm text-slate-500">Analista de Negócios · 12/06/2026</p>
+    </header>
+
+    {introHtml.trim() && (
+      <section class="pdf-section mb-10">
+        <MarkdownBody html={introHtml} />
+      </section>
+    )}
+
+    {
+      partes.map((parte) => {
+        const html = getParteHtml(parte.id);
+        if (!html) return null;
+        return (
+          <section class="pdf-section page-break mb-10">
+            <h2 class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900">
+              Parte {parte.id} — {parte.title}
+            </h2>
+            <MarkdownBody html={html} />
+          </section>
+        );
+      })
+    }
+
+    <section class="pdf-section page-break mb-10">
+      <h2 class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900">
+        Racional das Decisões
+      </h2>
+      <MarkdownBody html={racionalHtml} />
+    </section>
+
+    <section class="pdf-section page-break mb-10">
+      <h2 class="mb-4 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900">
+        Anexo — Configurações Técnicas (JSONs)
+      </h2>
+      <MarkdownBody html={anexoHtml} />
+    </section>
+  </article>
+
+  <script>
+    const printBtn = document.getElementById('print-pdf-btn');
+    printBtn?.addEventListener('click', () => window.print());
+
+    if (new URLSearchParams(window.location.search).get('print') === '1') {
+      window.addEventListener('load', () => {
+        setTimeout(() => window.print(), 600);
+      });
+    }
+  </script>
+</Layout>
