@@ -24,33 +24,18 @@ Reinicie `npm run dev` após salvar.
 
 ## Deploy na Vercel
 
-### 1. Subir o código no GitHub
+### Opção A — Root Directory (recomendado)
 
-O repositório deve conter a pasta `vitaflex-site/` com o site.
+1. [vercel.com/new](https://vercel.com/new) → importe o repositório
+2. **Root Directory:** `vitaflex-site`  ← importante
+3. **Environment Variable:** `MISTRAL_API_KEY` = sua chave
+4. Deploy
 
-### 2. Importar na Vercel
+### Opção B — Deploy pela raiz do repo (`zd/`)
 
-1. Acesse [vercel.com/new](https://vercel.com/new)
-2. Importe o repositório
-3. **Root Directory:** `vitaflex-site`
-4. Framework: **Astro** (detectado automaticamente)
+Se não configurar Root Directory, o `vercel.json` na raiz já aponta para `vitaflex-site` automaticamente.
 
-### 3. Variável de ambiente (obrigatória para o chatbot)
-
-Em **Settings → Environment Variables**, adicione:
-
-| Nome | Valor | Ambientes |
-|---|---|---|
-| `MISTRAL_API_KEY` | sua chave em [console.mistral.ai](https://console.mistral.ai/) | Production, Preview, Development |
-
-Clique **Deploy**.
-
-### 4. Testar
-
-- Site: `https://seu-projeto.vercel.app/parte-1`
-- Chatbot: abra o widget e envie uma pergunta
-
-Sem `MISTRAL_API_KEY`, o site funciona; só o chatbot avisa que falta configuração.
+Mesma variável: `MISTRAL_API_KEY` no painel da Vercel.
 
 ---
 

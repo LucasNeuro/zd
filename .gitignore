@@ -2,6 +2,7 @@
 .env.local
 .env.*.local
 !.env.example
+.vercel/
 vitaflex-site/node_modules/
 vitaflex-site/dist/
 vitaflex-site/.astro/

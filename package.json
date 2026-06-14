@@ -1,0 +1,8 @@
+{
+  "name": "zd-vitaflex-deploy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm install --prefix vitaflex-site && npm run build --prefix vitaflex-site && node scripts/copy-vercel-output.mjs"
+  }
+}
