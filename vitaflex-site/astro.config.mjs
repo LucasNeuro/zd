@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { defineConfig, envField } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 import { loadEnv } from 'vite';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -31,7 +31,10 @@ function readEnvText(filePath) {
   return decodeEnvBuffer(fs.readFileSync(filePath));
 }
 
-function bootstrapEnv() {
+/** Carrega .env local (dev). Na Vercel use Environment Variables no painel. */
+function bootstrapLocalEnv() {
+  if (process.env.MISTRAL_API_KEY?.trim()) return;
+
   const mode = process.env.NODE_ENV ?? 'development';
   const fromVite = loadEnv(mode, projectRoot, '');
   if (fromVite.MISTRAL_API_KEY?.trim()) {
@@ -56,11 +59,17 @@ function bootstrapEnv() {
   }
 }
 
-bootstrapEnv();
+bootstrapLocalEnv();
 
 export default defineConfig({
   integrations: [tailwind()],
-  adapter: node({ mode: 'standalone' }),
+  adapter: vercel({
+    includeFiles: [
+      'content/desafio-tecnico-zendesk-vitaflex-entrega-final.md',
+      'content/desafio-zendesk-racional-decisoes.md',
+      'content/jsons-prontos-para-importar-desafio-zendesk-vitaflex.md',
+    ],
+  }),
   vite: {
     envDir: projectRoot,
   },

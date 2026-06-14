@@ -1,12 +1,29 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
-
-const contentDir = path.join(process.cwd(), 'content');
 
 export const entregaFile = 'desafio-tecnico-zendesk-vitaflex-entrega-final.md';
 export const anexoFile = 'jsons-prontos-para-importar-desafio-zendesk-vitaflex.md';
 export const racionalFile = 'desafio-zendesk-racional-decisoes.md';
+
+const siteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+
+function resolveContentDir(): string {
+  const candidates = [
+    path.join(siteRoot, 'content'),
+    path.join(process.cwd(), 'content'),
+    path.join(process.cwd(), 'dist', 'content'),
+  ];
+
+  for (const dir of candidates) {
+    if (fs.existsSync(path.join(dir, entregaFile))) return dir;
+  }
+
+  return path.join(siteRoot, 'content');
+}
+
+const contentDir = resolveContentDir();
 
 export const partes = [
   { id: 1, slug: 'parte-1', title: 'Estruturação de Fluxos e Acessos', icon: '01' },
