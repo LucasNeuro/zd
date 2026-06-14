@@ -8,7 +8,7 @@ npm install --strict-ssl=false
 npm run dev
 ```
 
-Abre em **http://localhost:4321** → redireciona para **Parte 1**
+Abre em **http://localhost:4321/** — Parte 1 na raiz, sem redirect
 
 ### Variável local (chatbot)
 
@@ -43,6 +43,7 @@ Mesma variável: `MISTRAL_API_KEY` no painel da Vercel.
 
 | URL | Conteúdo |
 |---|---|
-| `/parte-1` … `/parte-6` | Respostas do desafio |
+| `/` ou `/parte-1` | Parte 1 — Fluxos e Acessos |
+| `/parte-2` … `/parte-6` | Respostas do desafio |
 | `/anexo` | JSONs de configuração |
 | `/racional` | Racional das decisões |

@@ -1,3 +1,12 @@
 ---
-return Astro.redirect('/parte-1');
+import DocLayout from '../layouts/DocLayout.astro';
+import MarkdownBody from '../components/MarkdownBody.astro';
+import { partes, getParteHtml } from '../utils/docs';
+
+const parte = partes[0];
+const html = getParteHtml(parte.id);
 ---
+
+<DocLayout title={parte.title} subtitle={`Resposta — Parte ${parte.id} do desafio técnico`} current={parte.slug}>
+  <MarkdownBody html={html!} />
+</DocLayout>

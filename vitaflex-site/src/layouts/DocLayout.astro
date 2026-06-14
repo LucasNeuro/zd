@@ -18,7 +18,7 @@ const { title, subtitle, current } = Astro.props;
         <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-eteg-muted">Apresentação</p>
         {partes.map((p) => (
           <a
-            href={`/${p.slug}`}
+            href={p.id === 1 ? '/' : `/${p.slug}`}
             class:list={[
               'block rounded-md px-3 py-2 text-sm transition',
               current === p.slug ? 'bg-eteg-light font-medium text-eteg' : 'text-slate-600 hover:bg-slate-50',
@@ -54,7 +54,14 @@ const { title, subtitle, current } = Astro.props;
       {current && current.startsWith('parte-') && (
         <div class="no-print mt-6 flex justify-between text-sm">
           {partes.find((p) => p.slug === current)!.id > 1 ? (
-            <a href={`/parte-${partes.find((p) => p.slug === current)!.id - 1}`} class="text-eteg hover:underline">
+            <a
+              href={
+                partes.find((p) => p.slug === current)!.id - 1 === 1
+                  ? '/'
+                  : `/parte-${partes.find((p) => p.slug === current)!.id - 1}`
+              }
+              class="text-eteg hover:underline"
+            >
               ← Parte anterior
             </a>
           ) : <span />}
