@@ -1,0 +1,48 @@
+---
+interface Props {
+  id: number;
+  title: string;
+  hypothesis: string;
+  evidence: string;
+  validation: string;
+  solution: string;
+  response: string;
+  bonus?: boolean;
+}
+
+const { id, title, hypothesis, evidence, validation, solution, response, bonus } = Astro.props;
+---
+
+<div class="glass-card overflow-hidden">
+  <div class="flex items-center gap-4 border-b border-slate-700/50 bg-slate-800/30 px-6 py-4">
+    <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-500/20 text-sm font-bold text-rose-400">
+      {id}
+    </span>
+    <h3 class="flex-1 font-semibold text-white">{title}</h3>
+    {bonus && (
+      <span class="rounded-full bg-amber-500/20 px-3 py-1 text-xs font-medium text-amber-400">Bônus</span>
+    )}
+  </div>
+  <div class="grid gap-4 p-6 sm:grid-cols-2">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-wider text-zendesk-light">Hipótese</p>
+      <p class="mt-1 text-sm text-slate-300">{hypothesis}</p>
+    </div>
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-wider text-zendesk-light">Evidências</p>
+      <p class="mt-1 text-sm text-slate-300">{evidence}</p>
+    </div>
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-wider text-zendesk-light">Validação</p>
+      <p class="mt-1 text-sm text-slate-300">{validation}</p>
+    </div>
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-wider text-zendesk-light">Solução</p>
+      <p class="mt-1 text-sm text-slate-300">{solution}</p>
+    </div>
+  </div>
+  <div class="border-t border-slate-700/50 bg-emerald-500/5 px-6 py-4">
+    <p class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Resposta</p>
+    <p class="mt-1 text-sm italic text-slate-300">"{response}"</p>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+---
+interface Props {
+  icon: string;
+  title: string;
+  summary: string;
+  slug: string;
+  color: string;
+  id: number;
+}
+
+const { icon, title, summary, slug, color, id } = Astro.props;
+---
+
+<a
+  href={`/${slug}`}
+  class="group glass-card block p-6 transition-all duration-300 hover:border-zendesk-light/40 hover:shadow-lg hover:shadow-zendesk-light/5 hover:-translate-y-1"
+>
+  <div class="flex items-start justify-between">
+    <span class="text-3xl">{icon}</span>
+    <span class={`rounded-full bg-gradient-to-r ${color} px-3 py-1 text-xs font-bold text-white`}>
+      Parte {id}
+    </span>
+  </div>
+  <h3 class="mt-4 text-lg font-semibold text-white group-hover:text-zendesk-light transition-colors">
+    {title}
+  </h3>
+  <p class="mt-2 text-sm leading-relaxed text-slate-400">{summary}</p>
+  <span class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-zendesk-light opacity-0 transition-opacity group-hover:opacity-100">
+    Ver detalhes →
+  </span>
+</a>

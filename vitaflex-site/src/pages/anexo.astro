@@ -1,0 +1,11 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import MarkdownBody from '../components/MarkdownBody.astro';
+import { loadDocumentHtml, anexoFile } from '../utils/docs';
+
+const html = loadDocumentHtml(anexoFile);
+---
+
+<DocLayout title="Anexo Técnico" subtitle="Configurações de referência — gatilhos, webhooks, SLAs e campos" current="anexo">
+  <MarkdownBody html={html} />
+</DocLayout>

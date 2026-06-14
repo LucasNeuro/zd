@@ -1,0 +1,72 @@
+---
+import Layout from './Layout.astro';
+import { partes } from '../utils/docs';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  current?: string;
+}
+
+const { title, subtitle, current } = Astro.props;
+---
+
+<Layout title={title} description={subtitle}>
+  <div class="mx-auto flex max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:px-8">
+    <aside class="no-print hidden w-60 shrink-0 lg:block">
+      <nav class="sticky top-24 space-y-1 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-eteg-muted">Apresentação</p>
+        {partes.map((p) => (
+          <a
+            href={`/${p.slug}`}
+            class:list={[
+              'block rounded-md px-3 py-2 text-sm transition',
+              current === p.slug ? 'bg-eteg-light font-medium text-eteg' : 'text-slate-600 hover:bg-slate-50',
+            ]}
+          >
+            Parte {p.id}
+          </a>
+        ))}
+        <hr class="my-3 border-slate-200" />
+        <a href="/anexo" class:list={['block rounded-md px-3 py-2 text-sm transition', current === 'anexo' ? 'bg-eteg-light font-medium text-eteg' : 'text-slate-600 hover:bg-slate-50']}>
+          Anexo Técnico
+        </a>
+        <a href="/racional" class:list={['block rounded-md px-3 py-2 text-sm transition', current === 'racional' ? 'bg-eteg-light font-medium text-eteg' : 'text-slate-600 hover:bg-slate-50']}>
+          Racional
+        </a>
+      </nav>
+    </aside>
+
+    <article class="min-w-0 flex-1">
+      <div class="no-print mb-6">
+        {current && current.startsWith('parte-') && (
+          <p class="mb-1 text-sm font-medium text-eteg">
+            Parte {partes.find((p) => p.slug === current)?.id} de 6
+          </p>
+        )}
+        <h1 class="text-2xl font-bold text-slate-900 sm:text-3xl">{title}</h1>
+        {subtitle && <p class="mt-1 text-slate-500">{subtitle}</p>}
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
+        <slot />
+      </div>
+
+      {current && current.startsWith('parte-') && (
+        <div class="no-print mt-6 flex justify-between text-sm">
+          {partes.find((p) => p.slug === current)!.id > 1 ? (
+            <a href={`/parte-${partes.find((p) => p.slug === current)!.id - 1}`} class="text-eteg hover:underline">
+              ← Parte anterior
+            </a>
+          ) : <span />}
+          {partes.find((p) => p.slug === current)!.id < 6 ? (
+            <a href={`/parte-${partes.find((p) => p.slug === current)!.id + 1}`} class="text-eteg hover:underline">
+              Próxima parte →
+            </a>
+          ) : (
+            <a href="/anexo" class="text-eteg hover:underline">Ver anexo técnico →</a>
+          )}
+        </div>
+      )}
+    </article>
+  </div>
+</Layout>

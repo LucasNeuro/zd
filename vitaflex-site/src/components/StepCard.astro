@@ -1,0 +1,42 @@
+---
+interface Props {
+  step: number;
+  title: string;
+  path: string;
+  items: string[];
+  tip?: string;
+}
+
+const { step, title, path, items, tip } = Astro.props;
+---
+
+<div class="glass-card relative overflow-hidden p-6 lg:p-8">
+  <div class="absolute -right-4 -top-4 text-8xl font-bold text-slate-800/50 select-none">{step}</div>
+  <div class="relative">
+    <div class="mb-4 flex items-center gap-3">
+      <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-zendesk-light to-emerald-500 text-sm font-bold text-zendesk-dark">
+        {step}
+      </span>
+      <h3 class="text-xl font-semibold text-white">{title}</h3>
+    </div>
+    <p class="mb-4 inline-flex items-center gap-2 rounded-lg bg-slate-800/60 px-3 py-2 font-mono text-xs text-zendesk-light">
+      <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+      </svg>
+      {path}
+    </p>
+    <ul class="space-y-2">
+      {items.map((item) => (
+        <li class="flex items-start gap-3 text-sm text-slate-300">
+          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zendesk-light" />
+          {item}
+        </li>
+      ))}
+    </ul>
+    {tip && (
+      <div class="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+        <strong class="text-amber-400">💡 Dica:</strong> {tip}
+      </div>
+    )}
+  </div>
+</div>

@@ -1,0 +1,15 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import MarkdownBody from '../components/MarkdownBody.astro';
+import { getRacionalHtml } from '../utils/docs';
+
+const html = getRacionalHtml();
+---
+
+<DocLayout
+  title="Racional das Decisões"
+  subtitle="Por que cada solução foi escolhida — texto para o avaliador"
+  current="racional"
+>
+  <MarkdownBody html={html} />
+</DocLayout>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  html?: string;
+  class?: string;
+}
+
+const { html, class: className = '' } = Astro.props;
+
+const prose =
+  'doc-content prose prose-slate max-w-none prose-headings:text-slate-900 prose-a:text-eteg prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-slate-900';
+---
+
+{html ? (
+  <div class={`${prose} ${className}`} set:html={html} />
+) : (
+  <div class={`${prose} ${className}`}>
+    <slot />
+  </div>
+)}

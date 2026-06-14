@@ -1,0 +1,19 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import MarkdownBody from '../components/MarkdownBody.astro';
+import { partes, getParteHtml } from '../utils/docs';
+
+export function getStaticPaths() {
+  return partes.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const parte = partes.find((p) => p.slug === slug)!;
+const html = getParteHtml(parte.id);
+
+if (!html) return Astro.redirect('/404');
+---
+
+<DocLayout title={parte.title} subtitle={`Resposta — Parte ${parte.id} do desafio técnico`} current={slug}>
+  <MarkdownBody html={html} />
+</DocLayout>

@@ -1,0 +1,8 @@
+.env
+.env.local
+.env.*.local
+!.env.example
+vitaflex-site/node_modules/
+vitaflex-site/dist/
+vitaflex-site/.astro/
+*.log
