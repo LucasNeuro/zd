@@ -3,6 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
+    "predev": "npm install --strict-ssl=false",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
@@ -13,7 +14,6 @@
     "@tailwindcss/typography": "^0.5.20",
     "astro": "^5.7.10",
     "marked": "^18.0.5",
-    "tailwindcss": "^3.4.17",
-    "zd-vitaflex-deploy": "file:.."
+    "tailwindcss": "^3.4.17"
   }
 }

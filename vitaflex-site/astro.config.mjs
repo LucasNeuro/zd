@@ -72,6 +72,11 @@ export default defineConfig({
   }),
   vite: {
     envDir: projectRoot,
+    server: {
+      watch: {
+        ignored: ['**/.vercel/**', '**/dist/**'],
+      },
+    },
   },
   env: {
     schema: {
